@@ -4,6 +4,9 @@
 [![Follow @MrAhmadAwais on Twitter](https://img.shields.io/badge/FOLLOW%20@MRAHMADAWAIS%20%E2%86%92-gray.svg?colorA=6A788D&colorB=6A788D&style=flat)](https://twitter.com/mrahmadawais/)
 
 > AI Stack for AI Engineers
+>
+> AI Stack simplifies the creation and management of AI agents using the Langbase SDK.
+
 
 <br>
 
@@ -13,6 +16,7 @@
 
 ```sh
 npm install ai-stack
+pnpm install ai-stack
 ```
 
 <br>
@@ -21,12 +25,65 @@ npm install ai-stack
 
 ## Usage
 
-```js
-// Use ESM `import` statement syntax.
-import aiStack from 'ai-stack';
+Full documentation is available at [Langbase SDK](https://langbase.com/docs/sdk).
+First, set up your environment variables by creating a `.env` file in your project root:
 
-// OR use CommonJS `require` syntax.
-const aiStack = require('ai-stack');
+```shell
+LANGBASE_API_KEY=your_api_key_here
+```
+
+Replace `your_api_key_here` with your actual Langbase API key.
+
+Then, use the package in your project:
+
+```javascript
+import {
+createAgent,
+runAgent,
+createMemory,
+uploadDocument,
+retrieveMemory,
+} from 'ai-stack';
+
+const agentConfig = {
+name: 'MyAgent',
+description: 'An AI agent for processing data',
+// Add other configuration details as needed
+};
+
+async function main() {
+// Create an agent
+const agent = await createAgent(agentConfig);
+
+// Run the agent
+const response = await runAgent(agent.name, [
+	{ role: 'user', content: 'Your input here' },
+]);
+console.log('Agent response:', response);
+
+// Create a memory
+const memory = await createMemory({
+	name: 'knowledge-base',
+	description: 'A memory for storing documents',
+});
+
+// Upload a document to memory
+await uploadDocument('knowledge-base', {
+	contentType: 'application/pdf',
+	documentName: 'example-doc.pdf',
+	document: fs.readFileSync('path/to/document.pdf'),
+	meta: {
+	author: 'Author Name',
+	url: 'https://example.com/document.pdf',
+	},
+});
+
+// Retrieve information from memory
+const results = await retrieveMemory('knowledge-base', 'Your query here');
+console.log('Memory retrieval results:', results);
+}
+
+main();
 ```
 
 <br>
@@ -68,28 +125,6 @@ const aiStack = require('ai-stack');
     <p><a href="https://www.linkedin.com/in/MrAhmadAwais/"><img alt="LinkedIn @MrAhmadAwais" align="center" src="https://img.shields.io/badge/LINKEDIN-gray.svg?colorB=0077b5&style=flat" /></a>&nbsp;<small><strong>(connect)</strong> On the LinkedIn profile y'all</small></p>
 </div>
 
-<br>
 
-[![👌](https://raw.githubusercontent.com/ahmadawais/stuff/master/images/git/sponsor.png)](./../../)
-
-## Sponsor
-
-Me ([Ahmad Awais](https://twitter.com/mrahmadawais/)) and my incredible wife ([Maedah Batool](https://twitter.com/MaedahBatool/)) are two engineers who fell in love with open source and then with each other. You can read more [about me here](https://ahmadawais.com/about). If you or your company use any of my projects or like what I’m doing then consider backing me. I'm in this for the long run. An open-source developer advocate.
-
-[![Ahmad on Twitter](https://img.shields.io/twitter/follow/mrahmadawais.svg?style=social&label=Follow%20@MrAhmadAwais)](https://twitter.com/mrahmadawais/)
-
-### [NodeCLI.com][n] — Learn to build Node.js CLI Automation
-
-> This repository is part of the [NodeCLI.com][n] course.
-
-After building hundreds of developer automation tools used by millions of developers, I am sharing exactly how you can do it yourself with minimum effective effort. Learn to build Node.js & JavaScript based CLI (Command Line Interface) apps. Automate the grunt work, do more in less time, impress your manager, and help the community.
-→ I'm sharing it all in this online video course. [Node CLI Automation
-without wasting a 1,000 hours][n] →</p>
-
-[![Node CLI Course](https://raw.githubusercontent.com/ahmadawais/stuff/master/nodecli/featured.jpg)][n]
-
-[![Node CLI](https://img.shields.io/badge/-NodeCLI.com%20%E2%86%92-gray.svg?colorB=488640&style=flat)][n]
 
 [n]: https://NodeCLI.com?utm_source=github&utm_medium=referral&utm_campaign=ahmadawais/cli-meow-help
-
-[![Awais on Twitter](https://raw.githubusercontent.com/ahmadawais/stuff/master/sponsor/sponsor.jpg)](https://github.com/AhmadAwais/sponsor)

@@ -13,6 +13,7 @@
 	"files": [
 		"index.js"
 	],
+	"type": "module",
 	"keywords": [
 		"ai-stack",
 		"Ahmad Awais",
@@ -24,5 +25,9 @@
 	"scripts": {
 		"test": "node test.js",
 		"format": "prettier --write \"./**/*.{js,json}\""
+	},
+	"dependencies": {
+		"dotenv": "^16.4.7",
+		"langbase": "^1.1.19"
 	}
 }
